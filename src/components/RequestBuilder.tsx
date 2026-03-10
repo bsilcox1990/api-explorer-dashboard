@@ -11,11 +11,22 @@ export default function RequestBuilder({setResponse}: Props){
 
     const sendRequest = async () => {
         try {
+            const start = performance.now();
+
             const res = await axios({
                 method,
                 url
             })
-            setResponse(res.data);
+
+            const end = performance.now();
+
+            setResponse({
+                data: res.data,
+                status: res.status,
+                time: Math.round(end - start),
+                size: JSON.stringify(res.data).length
+            });
+
         }catch (error){
             console.error(error);
         }
