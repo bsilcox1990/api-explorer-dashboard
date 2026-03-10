@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import HeadersEditor from "./HeadersEditor";
 
 type Props = {
     setResponse: (data: any) => void;
@@ -8,14 +9,25 @@ type Props = {
 export default function RequestBuilder({setResponse}: Props){
     const [url, setUrl] = useState("");
     const [method, setMethod] = useState("GET");
+    const [headers, setHeaders] = useState([{ key: "", value: ""}])
 
     const sendRequest = async () => {
+        const formattedHeaders = headers.reduce((acc, header) => {
+            if(header.key) {
+                acc[header.key] = header.value
+            }
+            return acc
+        }, {} as Record<string, string> )
+
+        console.log("Formatted Headers", formattedHeaders);
+
         try {
             const start = performance.now();
 
             const res = await axios({
                 method,
-                url
+                url,
+                headers: formattedHeaders
             })
 
             const end = performance.now();
@@ -55,6 +67,8 @@ export default function RequestBuilder({setResponse}: Props){
                     onChange={(e) => setUrl(e.target.value)}
                     className="border p-2 flex-1"
                 />
+
+                <HeadersEditor headers={headers} setHeaders={setHeaders} />
             </div>
 
             <button
