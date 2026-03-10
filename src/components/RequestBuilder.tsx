@@ -3,6 +3,7 @@ import axios from "axios";
 import HeadersEditor from "./HeadersEditor";
 import MethodSelector from "./MethodSelector";
 import UrlInput from "./UrlInput";
+import BodyEditor from "./BodyEditor";
 
 type Props = {
     setResponse: (data: any) => void;
@@ -12,8 +13,20 @@ export default function RequestBuilder({setResponse}: Props){
     const [url, setUrl] = useState("");
     const [method, setMethod] = useState("GET");
     const [headers, setHeaders] = useState([{ key: "", value: ""}])
+    const [body, setBody] = useState("");
 
     const sendRequest = async () => {
+        let parsedBody = undefined;
+
+        if (body) {
+            try {
+                parsedBody = JSON.parse(body);
+            } catch{
+                alert("Invalid JSON body");
+                return
+            }
+        }
+
         const formattedHeaders = headers.reduce((acc, header) => {
             if(header.key) {
                 acc[header.key] = header.value
@@ -29,7 +42,8 @@ export default function RequestBuilder({setResponse}: Props){
             const res = await axios({
                 method,
                 url,
-                headers: formattedHeaders
+                headers: formattedHeaders, 
+                data: parsedBody
             })
 
             const end = performance.now();
@@ -54,6 +68,7 @@ export default function RequestBuilder({setResponse}: Props){
                 <MethodSelector method={method} setMethod={setMethod}/>
                 <UrlInput url={url} setUrl={setUrl} />
                 <HeadersEditor headers={headers} setHeaders={setHeaders} />
+                <BodyEditor body={body} setBody={setBody} />
             </div>
 
             <button
