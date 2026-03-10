@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import HeadersEditor from "./HeadersEditor";
+import MethodSelector from "./MethodSelector";
+import UrlInput from "./UrlInput";
 
 type Props = {
     setResponse: (data: any) => void;
@@ -48,26 +50,9 @@ export default function RequestBuilder({setResponse}: Props){
         <div className="p-4 border rounded">
             <h2 className="text-xl font-bold mb-3">Request Builder</h2>
 
-            <div className="flex gap-2 mb-3">
-                <select
-                    value={method}
-                    onChange={(e) => setMethod(e.target.value)}
-                    className="border p-2"
-                >
-                    <option>GET</option>
-                    <option>POST</option>
-                    <option>PUT</option>
-                    <option>DELETE</option>
-                </select>
-
-                <input
-                    type="text"
-                    placeholder="Enter API URL"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                    className="border p-2 flex-1"
-                />
-
+            <div className="flex gap-2 mb-4">
+                <MethodSelector method={method} setMethod={setMethod}/>
+                <UrlInput url={url} setUrl={setUrl} />
                 <HeadersEditor headers={headers} setHeaders={setHeaders} />
             </div>
 
