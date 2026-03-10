@@ -28,7 +28,7 @@ export default function ResponseViewer({ response }: Props){
                     <span className="font-semibold">Size: </span>{response.size} bytes
                 </div>
             </div>
-            <pre className="bg-gray-100 p-4 rounded text-sm overflow-auto max-h-[500px]">
+            <pre className="bg-slate-900 text-green-400 p-4 rounded text-sm overflow-auto max-h-[500px]">
                 {JSON.stringify(response.data, null, 2)}
             </pre>
         </div>

@@ -48,9 +48,9 @@ export default function RequestBuilder({setResponse}: Props){
 
     return (
         <div className="p-4 border rounded">
-            <h2 className="text-xl font-bold mb-3">Request Builder</h2>
+            <h2 className="text-xl font-bold mb-4">Request</h2>
 
-            <div className="flex gap-2 mb-4">
+            <div className="flex flex-col gap-4">
                 <MethodSelector method={method} setMethod={setMethod}/>
                 <UrlInput url={url} setUrl={setUrl} />
                 <HeadersEditor headers={headers} setHeaders={setHeaders} />
@@ -58,7 +58,7 @@ export default function RequestBuilder({setResponse}: Props){
 
             <button
                 onClick={sendRequest}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 mt-4 rounded transition"
             >
                 Send Request
             </button>
