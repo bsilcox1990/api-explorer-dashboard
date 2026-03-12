@@ -18,7 +18,7 @@ type Props = {
     setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>
 }
 
-export default function RequestBuilder({ method, setMethod, url, setUrl, body, setBody, setResponse, history, setHistory}: Props){
+export default function RequestBuilder({ method, setMethod, url, setUrl, body, setBody, setResponse, setHistory}: Props){
     const [headers, setHeaders] = useState([{ key: "", value: ""}]);
     const [loading, setLoading] = useState(false);
 
