@@ -19,7 +19,8 @@ type Props = {
 }
 
 export default function RequestBuilder({ method, setMethod, url, setUrl, body, setBody, setResponse, history, setHistory}: Props){
-    const [headers, setHeaders] = useState([{ key: "", value: ""}])
+    const [headers, setHeaders] = useState([{ key: "", value: ""}]);
+    const [loading, setLoading] = useState(false);
 
     const sendRequest = async () => {
         let parsedBody = undefined;
@@ -40,7 +41,7 @@ export default function RequestBuilder({ method, setMethod, url, setUrl, body, s
             return acc
         }, {} as Record<string, string> )
 
-        console.log("Formatted Headers", formattedHeaders);
+        setLoading(true);
 
         try {
             const start = performance.now();
@@ -67,12 +68,14 @@ export default function RequestBuilder({ method, setMethod, url, setUrl, body, s
                     url,
                     body
                 },
-                ...prev
+                ...prev.slice(0, 9)
             ])
 
         }catch (error){
             console.error(error);
         }
+
+        setLoading(false);
     }
 
     return (
@@ -88,9 +91,10 @@ export default function RequestBuilder({ method, setMethod, url, setUrl, body, s
 
             <button
                 onClick={sendRequest}
+                disabled={loading}
                 className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 mt-4 rounded transition"
             >
-                Send Request
+                {loading ? "Sending..." : "Send Request"}
             </button>
         </div>
     )
