@@ -4,16 +4,22 @@ import HeadersEditor from "./HeadersEditor";
 import MethodSelector from "./MethodSelector";
 import UrlInput from "./UrlInput";
 import BodyEditor from "./BodyEditor";
+import type { HistoryItem } from "../types/api";
 
 type Props = {
-    setResponse: (data: any) => void;
+    method: string
+    setMethod: (method: string) => void
+    url: string
+    body: string
+    setBody: (body: string) => void
+    setUrl: (url: string) => void
+    setResponse: (data: any) => void
+    history: HistoryItem[]
+    setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>
 }
 
-export default function RequestBuilder({setResponse}: Props){
-    const [url, setUrl] = useState("");
-    const [method, setMethod] = useState("GET");
+export default function RequestBuilder({ method, setMethod, url, setUrl, body, setBody, setResponse, history, setHistory}: Props){
     const [headers, setHeaders] = useState([{ key: "", value: ""}])
-    const [body, setBody] = useState("");
 
     const sendRequest = async () => {
         let parsedBody = undefined;
@@ -54,6 +60,15 @@ export default function RequestBuilder({setResponse}: Props){
                 time: Math.round(end - start),
                 size: JSON.stringify(res.data).length
             });
+
+            setHistory((prev) => [
+                {
+                    method,
+                    url,
+                    body
+                },
+                ...prev
+            ])
 
         }catch (error){
             console.error(error);
