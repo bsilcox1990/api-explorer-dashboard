@@ -29,7 +29,7 @@ https://api-explorer-dashboard-rho.vercel.app/
 
 Clone the repository:
 
-> git clone https://github.com/bsilcox1990/api-explorer-dashboard.git
+> git clone https://github.com/bsilcox1990/api-explorer-dashboard.git<br>
 > cd api-explorer-dashboard
 
 Install dependencies:
