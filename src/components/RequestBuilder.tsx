@@ -14,7 +14,6 @@ type Props = {
     setBody: (body: string) => void
     setUrl: (url: string) => void
     setResponse: (data: any) => void
-    history: HistoryItem[]
     setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>
 }
 

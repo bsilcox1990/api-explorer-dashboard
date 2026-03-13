@@ -32,8 +32,7 @@ export default function Dashboard() {
 
           <div className="bg-white p-6 rounded-lg shadow">
             <RequestBuilder 
-                setResponse={setResponse} 
-                history={history} 
+                setResponse={setResponse}  
                 setHistory={setHistory}
                 method={method}
                 setMethod={setMethod}
